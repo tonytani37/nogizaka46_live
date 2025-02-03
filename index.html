@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>乃木坂46 言葉たち</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="statics/img/nogi_logo.png">
+    <style>
+    body {
+        background-color: #7f1084; /* 背景色を青に設定 */
+        color: #500a54; /* テキスト色を白に設定 */
+      }
+    </style>
+</head>
+<body>
+    <!-- <h1>乃木坂46 言葉たち</h1> -->
+    <script>
+        function showRandomImage() {
+            const images = [
+            'statics/img/top_gazo_0102.jpg',
+            'statics/img/top_gazo_03.jpg',
+            'statics/img/top_gazo_04.jpg',
+            'statics/img/top_gazo_05.jpg'
+            ];
+            const randomIndex = Math.floor(Math.random() * images.length);
+            const randomImage = images[randomIndex];
+            document.getElementById('randomImage').src = randomImage;
+            }
+
+        // CSVファイルのURL
+        const csvUrl = 'https://raw.githubusercontent.com/tonytani37/nogizaka46_live/refs/heads/main/nogizaka_meigen.csv';
+
+        // CSVファイルを取得してパースする関数
+        fetch(csvUrl)
+            .then(response => response.text())
+            .then(csvText => {
+                // Papa Parseを使ってCSVをパース
+                Papa.parse(csvText, {
+                    header: false, // ヘッダー行を扱う
+                    complete: function(results) {
+                        // ランダムに発生させたの行数を抽出する
+                        let randomIndex = Math.floor(Math.random() * results.data.length);
+                        let specificRow = results.data[randomIndex]; // 乱数で発生させた行数を指定
+
+                        // 抽出した行をHTMLに表示（output_01は本文、_02はそれを言った人または曲名
+                        let output_01 = specificRow[0] 
+                        document.getElementById('csvData_01').innerHTML = output_01;
+                        let output_02 = specificRow[1].slice(1)
+                        document.getElementById('csvData_02').innerHTML = output_02;
+                    }
+                });
+            })
+            .catch(error => console.error('エラー:', error));
+
+        
+        function page_reloted(){
+            location.reload();
+        }
+
+        window.onload = showRandomImage; 
+        
+    </script>
+<br>
+<div class="card container" style="width: 800rem;">
+    <img id='randomImage',src=' ' class="card-img-top" alt="...">
+    <div class="card-body">
+        <img src="statics/img/nogi_logo.png" alt="タイトル" width="50" class="img-fluid" onclick="page_reloted()">
+      <!-- <h5 class="card-title">乃木坂46 言葉たち</h5> -->
+      <p class="card-text">
+        <div id="csvData_01">ここに抽出したCSVデータが表示されます。</div><br>
+        <div id="csvData_02">ここに抽出したCSVデータが表示されます。</div>
+      </p>
+      <!-- <img src="statics/img/nogi_logo.png" alt="タイトル" width="50" class="img-fluid" onclick="page_reloted()"> -->
+      <!-- <a href="#" class="btn btn-primary" onclick="page_reloted()">努力 感謝 笑顔</a> -->
+    </div>
+  </div>
+    <!-- <div id="csvData_01">ここに抽出したCSVデータが表示されます。</div><br>
+    <div id="csvData_02">ここに抽出したCSVデータが表示されます。</div>
+     -->
+</body>
+</html>
