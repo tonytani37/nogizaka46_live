@@ -2,119 +2,125 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>乃木坂46 言葉たち</title>
+    <title>乃木坂４６　言葉たち</title>
+    <link rel="shortcut icon" href="statics/img/nogi_logo.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="shortcut icon" href="statics/img/nogi_logo.png">
     <style>
-    body {
-        background-color: #7f1084; /* 背景色を青に設定 */
-        color: #500a54; /* テキスト色を白に設定 */
-      }
+        /* 強制的にスマホサイズの表示をシミュレートするためのスタイル */
+        body {
+            max-width: 576px; /* スマホサイズに設定 */
+            margin: 0 auto; /* 中央揃え */
+            background-color: #7f1084; /* 背景色を青に設定 */
+            color: #500a54; /* テキスト色を白に設定 */
+        }
     </style>
 </head>
 <body>
-    <!-- <h1>乃木坂46 言葉たち</h1> -->
-    <script>
-        function showRandomImage() {
-            const images = [
-            '01.jpg',
-            '02.jpg',
-            '03.jpg',
-            '04.jpg',
-            '05.jpg',
-            '06.jpg',
-            '07.jpg',
-            '08.jpg',
-            '09.jpg',
-            '10.jpg',
-            '11.jpg',
-            '12.jpg',
-            '13.jpg',
-            '14.jpg',
-            '15.jpg',
-            '16.jpg',
-            '17.jpg',
-            '18.jpg',
-            '19.jpg',
-            '20.jpg',
-            '21.jpg',
-            '22.jpg',
-            '23.jpg',
-            '24.jpg',
-            '25.jpg',
-            '26.jpg',
-            '27.jpg',
-            '28.jpg',
-            '29.jpg',
-            '30.jpg',
-            '31.jpg',
-            '32.jpg',
-            '33.jpg',
-            '34.jpg',
-            '35.jpg',
-            '36.jpg',
-            '37.jpg'
-            ];
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <img id='randomImage',src=' ' class="card-img-top" alt="...">
+                    <!-- <img src="statics/img/01.jpg" width="100" class="card-img-top" alt="Sample Image"> -->
+                    <div class="card-body">
+                        <!-- <h5 class="card-title">カードのタイトル</h5> -->
+                        <img src="statics/img/nogi_logo.png" alt="タイトル" width="100" class="img-fluid" onclick="page_reloted()">
+                        <p class="card-text">
+                            <h1><div id="csvData_01">ここに抽出したCSVデータが表示されます。</div><br>
+                            <div id="csvData_02">ここに抽出したCSVデータが表示されます。</div></h1>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    function showRandomImage() {
+        const images = [
+        '01.jpg',
+        '02.jpg',
+        '03.jpg',
+        '04.jpg',
+        '05.jpg',
+        '06.jpg',
+        '07.jpg',
+        '08.jpg',
+        '09.jpg',
+        '10.jpg',
+        '11.jpg',
+        '12.jpg',
+        '13.jpg',
+        '14.jpg',
+        '15.jpg',
+        '16.jpg',
+        '17.jpg',
+        '18.jpg',
+        '19.jpg',
+        '20.jpg',
+        '21.jpg',
+        '22.jpg',
+        '23.jpg',
+        '24.jpg',
+        '25.jpg',
+        '26.jpg',
+        '27.jpg',
+        '28.jpg',
+        '29.jpg',
+        '30.jpg',
+        '31.jpg',
+        '32.jpg',
+        '33.jpg',
+        '34.jpg',
+        '35.jpg',
+        '36.jpg',
+        '37.jpg'
+        ];
 
-            const path = 'statics/img/';
-            
-            const randomIndex = Math.floor(Math.random() * images.length);
-            const randomImage = images[randomIndex];
-            console.log(path + randomImage)
-            document.getElementById('randomImage').src = path + randomImage;
-            }
-
-        // CSVファイルのURL
-        const csvUrl = 'https://raw.githubusercontent.com/tonytani37/nogizaka46_live/refs/heads/main/nogizaka_meigen.csv';
-
-        // CSVファイルを取得してパースする関数
-        fetch(csvUrl)
-            .then(response => response.text())
-            .then(csvText => {
-                // Papa Parseを使ってCSVをパース
-                Papa.parse(csvText, {
-                    header: false, // ヘッダー行を扱う
-                    complete: function(results) {
-                        // ランダムに発生させたの行数を抽出する
-                        let randomIndex = Math.floor(Math.random() * results.data.length);
-                        let specificRow = results.data[randomIndex]; // 乱数で発生させた行数を指定
-
-                        // 抽出した行をHTMLに表示（output_01は本文、_02はそれを言った人または曲名
-                        let output_01 = specificRow[0] 
-                        document.getElementById('csvData_01').innerHTML = output_01;
-                        let output_02 = specificRow[1].slice(1)
-                        document.getElementById('csvData_02').innerHTML = output_02;
-                    }
-                });
-            })
-            .catch(error => console.error('エラー:', error));
-
+        const path = 'statics/img/';
         
-        function page_reloted(){
-            location.reload();
+        const randomIndex = Math.floor(Math.random() * images.length);
+        const randomImage = images[randomIndex];
+        console.log(path + randomImage)
+        document.getElementById('randomImage').src = path + randomImage;
         }
 
-        window.onload = showRandomImage; 
-        
-    </script>
-<br>
-<div class="card container" style="width: 800rem;">
-    <img id='randomImage',src=' ' class="card-img-top" alt="...">
-    <!-- <img src='statics/img/01st.jpg' class="card-img-top" alt="..."> -->
-    <div class="card-body">
-        <img src="statics/img/nogi_logo.png" alt="タイトル" width="100" class="img-fluid" onclick="page_reloted()">
-      <!-- <h5 class="card-title">乃木坂46 言葉たち</h5> -->
-      <p class="card-text">
-        <h1><div id="csvData_01">ここに抽出したCSVデータが表示されます。</div><br>
-        <div id="csvData_02">ここに抽出したCSVデータが表示されます。</div></h1>
-      </p>
-      <!-- <img src="statics/img/nogi_logo.png" alt="タイトル" width="50" class="img-fluid" onclick="page_reloted()"> -->
-      <!-- <a href="#" class="btn btn-primary" onclick="page_reloted()">努力 感謝 笑顔</a> -->
-    </div>
-  </div>
-    <!-- <div id="csvData_01">ここに抽出したCSVデータが表示されます。</div><br>
-    <div id="csvData_02">ここに抽出したCSVデータが表示されます。</div>
-     -->
-</body>
+    // CSVファイルのURL
+    const csvUrl = 'https://raw.githubusercontent.com/tonytani37/nogizaka46_live/refs/heads/main/nogizaka_meigen.csv';
+
+    // CSVファイルを取得してパースする関数
+    fetch(csvUrl)
+        .then(response => response.text())
+        .then(csvText => {
+            // Papa Parseを使ってCSVをパース
+            Papa.parse(csvText, {
+                header: false, // ヘッダー行を扱う
+                complete: function(results) {
+                    // ランダムに発生させたの行数を抽出する
+                    let randomIndex = Math.floor(Math.random() * results.data.length);
+                    let specificRow = results.data[randomIndex]; // 乱数で発生させた行数を指定
+
+                    // 抽出した行をHTMLに表示（output_01は本文、_02はそれを言った人または曲名
+                    let output_01 = specificRow[0] 
+                    document.getElementById('csvData_01').innerHTML = output_01;
+                    let output_02 = specificRow[1].slice(1)
+                    document.getElementById('csvData_02').innerHTML = output_02;
+                }
+            });
+        })
+        .catch(error => console.error('エラー:', error));
+
+    
+    function page_reloted(){
+        location.reload();
+    }
+
+    window.onload = showRandomImage; 
+    
+</script>
 </html>
+
+
